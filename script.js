@@ -78,6 +78,51 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Modal Logic
+    let toastTimer;
+    const showToast = (message) => {
+        if (!message) return;
+        let toast = document.querySelector('.toast-notice');
+        if (!toast) {
+            toast = document.createElement('div');
+            toast.className = 'toast-notice';
+            document.body.appendChild(toast);
+        }
+        toast.textContent = message;
+        toast.classList.add('show');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => toast.classList.remove('show'), 3000);
+    };
+
+    const mailtoLinks = document.querySelectorAll('[data-mailto]');
+    if (mailtoLinks.length) {
+        mailtoLinks.forEach(link => {
+            link.addEventListener('click', (event) => {
+                event.preventDefault();
+                const email = link.dataset.mailto;
+                if (!email) return;
+
+                const params = [];
+                if (link.dataset.subject) {
+                    params.push(`subject=${encodeURIComponent(link.dataset.subject)}`);
+                }
+                if (link.dataset.body) {
+                    params.push(`body=${encodeURIComponent(link.dataset.body)}`);
+                }
+                const mailtoHref = `mailto:${email}${params.length ? '?' + params.join('&') : ''}`;
+
+                window.location.href = mailtoHref;
+
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(email)
+                        .then(() => showToast('Email copied. Paste it into your mail app.'))
+                        .catch(() => showToast(`Email: ${email}`));
+                } else {
+                    showToast(`Email: ${email}`);
+                }
+            });
+        });
+    }
+
     const modal = document.getElementById('imageModal');
     const modalImg = document.getElementById('modalImg');
     const modalTitle = document.getElementById('modalTitle');
