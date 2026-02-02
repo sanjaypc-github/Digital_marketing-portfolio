@@ -363,6 +363,8 @@
                         <p style="font-size: 1.1rem; color: var(--text-secondary);">
                             I am particularly interested in content marketing, SEO fundamentals, social media strategy,
                             and performance-driven campaigns. I combine creativity with data to build brands that last.
+                            <br><br>
+                            Mail ID: pcsanjay2006@gmail.com
                         </p>
                     </div>
                     <!-- About Image with Curved Edges -->
@@ -402,6 +404,854 @@
     <!-- Footer Removed (Merged Above) -->
 
     <script src="script.js"></script>
+
+    <!-- AI Chatbot Widget CSS -->
+<style>
+/* Chat Widget Styles */
+* {
+  box-sizing: border-box;
+}
+
+/* Floating Button */
+.chat-widget-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  z-index: 9999;
+}
+
+.chat-widget-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+.chat-widget-button svg {
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+/* Chat Container */
+.chat-widget-container {
+  position: fixed;
+  bottom: 90px;
+  right: 20px;
+  width: 380px;
+  max-width: calc(100vw - 40px);
+  height: 550px;
+  max-height: calc(100vh - 120px);
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  z-index: 9998;
+}
+
+.chat-widget-container.hidden {
+  opacity: 0;
+  transform: translateY(20px);
+  pointer-events: none;
+}
+
+/* Header */
+.chat-widget-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chat-widget-header h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 28px;
+  cursor: pointer;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: background 0.2s ease;
+}
+
+.close-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Messages */
+.chat-messages {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: #f8f9fa;
+}
+
+.message {
+  display: flex;
+  animation: slideIn 0.3s ease;
+  flex-direction: column;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.message-content {
+  max-width: 75%;
+  padding: 12px 16px;
+  border-radius: 12px;
+  line-height: 1.5;
+  font-size: 14px;
+  white-space: pre-wrap;
+}
+
+.bot-message .message-content {
+  background: white;
+  color: #333;
+  border-bottom-left-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+}
+
+.user-message {
+  align-items: flex-end;
+}
+
+.user-message .message-content {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-bottom-right-radius: 4px;
+}
+
+/* Contact Suggestion Button */
+.contact-suggestion {
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+}
+
+.contact-now-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 13px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.contact-now-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.contact-now-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Typing Indicator */
+.typing-indicator {
+  display: flex;
+  gap: 4px;
+  padding: 8px 0;
+}
+
+.typing-indicator span {
+  width: 8px;
+  height: 8px;
+  background: #999;
+  border-radius: 50%;
+  animation: bounce 1.4s infinite;
+}
+
+.typing-indicator span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.typing-indicator span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes bounce {
+  0%, 60%, 100% {
+    transform: translateY(0);
+  }
+  30% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Chat Suggestions */
+.chat-suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 12px 20px;
+  background: white;
+  border-top: 1px solid #e9ecef;
+}
+
+.suggestion-chip {
+  padding: 8px 16px;
+  background: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 20px;
+  font-size: 13px;
+  color: #495057;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.suggestion-chip:hover {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-color: #667eea;
+  transform: translateY(-1px);
+}
+
+/* Input Container */
+.chat-input-container {
+  padding: 16px;
+  background: white;
+  border-top: 1px solid #e9ecef;
+  display: flex;
+  gap: 10px;
+}
+
+.chat-input {
+  flex: 1;
+  padding: 12px 16px;
+  border: 1px solid #dee2e6;
+  border-radius: 24px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.chat-input:focus {
+  border-color: #667eea;
+}
+
+.send-btn {
+  width: 44px;
+  height: 44px;
+  border: none;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+}
+
+.send-btn:hover {
+  transform: scale(1.05);
+}
+
+.send-btn:active {
+  transform: scale(0.95);
+}
+
+.send-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Contact Modal */
+.contact-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  transition: opacity 0.3s ease;
+}
+
+.contact-modal.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  animation: modalSlideIn 0.3s ease;
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modal-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 16px 20px;
+  border-radius: 16px 16px 0 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-header h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.close-modal-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 28px;
+  cursor: pointer;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: background 0.2s ease;
+}
+
+.close-modal-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.contact-form {
+  padding: 24px 20px;
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 6px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.form-input:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.submit-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Scrollbar Styling */
+.chat-messages::-webkit-scrollbar {
+  width: 6px;
+}
+
+.chat-messages::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.chat-messages::-webkit-scrollbar-thumb {
+  background: #cbd5e0;
+  border-radius: 3px;
+}
+
+.chat-messages::-webkit-scrollbar-thumb:hover {
+  background: #a0aec0;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 480px) {
+  .chat-widget-container {
+    bottom: 0;
+    right: 0;
+    left: 0;
+    width: 100%;
+    max-width: 100%;
+    height: 100vh;
+    max-height: 100vh;
+    border-radius: 0;
+  }
+  
+  .chat-widget-button {
+    bottom: 15px;
+    right: 15px;
+    width: 56px;
+    height: 56px;
+  }
+}
+</style>
+
+<!-- AI Chatbot Widget HTML -->
+<div id="chat-widget-button" class="chat-widget-button" aria-label="Open chat">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20 2H4C2.9 2 2 2.9 2 4V22L6 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2Z" fill="white"/>
+  </svg>
+</div>
+
+<div id="chat-widget-container" class="chat-widget-container hidden">
+  <div class="chat-widget-header">
+    <h3>AI Assistant</h3>
+    <button id="chat-close-btn" class="close-btn" aria-label="Close chat">&times;</button>
+  </div>
+  
+  <div id="chat-messages" class="chat-messages">
+    <div class="message bot-message">
+      <div class="message-content">Hi! I'm your AI assistant. How can I help you today?</div>
+    </div>
+  </div>
+  
+  <!-- Chat Suggestions -->
+  <div id="chat-suggestions" class="chat-suggestions">
+    <button class="suggestion-chip">Tell me about your services</button>
+    <button class="suggestion-chip">What are your pricing options?</button>
+    <button class="suggestion-chip">How can I get started?</button>
+    <button class="suggestion-chip">What makes you different?</button>
+  </div>
+  
+  <div class="chat-input-container">
+    <input 
+      type="text" 
+      id="chat-input" 
+      placeholder="Type your message..."
+      class="chat-input"
+    />
+    <button id="chat-send-btn" class="send-btn" aria-label="Send message">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M2 21L23 12L2 3V10L17 12L2 14V21Z" fill="white"/>
+      </svg>
+    </button>
+  </div>
+</div>
+
+<!-- Contact Modal -->
+<div id="contact-modal" class="contact-modal hidden">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3>Contact Us</h3>
+      <button id="close-modal-btn" class="close-modal-btn" aria-label="Close modal">&times;</button>
+    </div>
+    <form id="contact-form" class="contact-form">
+      <div class="form-group">
+        <label for="contact-name">Name *</label>
+        <input 
+          type="text" 
+          id="contact-name" 
+          name="name"
+          placeholder="Your name"
+          required
+          class="form-input"
+        />
+      </div>
+      <div class="form-group">
+        <label for="contact-email">Email *</label>
+        <input 
+          type="email" 
+          id="contact-email" 
+          name="email"
+          placeholder="your@email.com"
+          required
+          class="form-input"
+        />
+      </div>
+      <button type="submit" class="submit-btn">Submit</button>
+    </form>
+  </div>
+</div>
+
+<!-- AI Chatbot Widget JavaScript -->
+<script>
+(function() {
+  'use strict';
+
+  // Configuration
+  const CONFIG = {
+    apiUrl: 'https://ai-chatbot-2km4.onrender.com/chat',
+    sessionTimeout: 30 * 60 * 1000, // 30 minutes
+    googleSheetUrl: 'https://script.google.com/macros/s/AKfycbxPCeAZYe_gc13y3719QCxYzW7ASFnmacQTHTlXzAVZij4fFGyQY25rZY6iff9-41WCKQ/exec', // Google Apps Script URL
+    chatSuggestions: [
+      'Tell me about your services',
+      'What are your pricing options?',
+      'How can I get started?',
+      'What makes you different?'
+    ]
+  };
+
+  // State management
+  let sessionId = null;
+  let isWaitingForResponse = false;
+
+  // DOM Elements
+  const widgetButton = document.getElementById('chat-widget-button');
+  const widgetContainer = document.getElementById('chat-widget-container');
+  const closeBtn = document.getElementById('chat-close-btn');
+  const chatInput = document.getElementById('chat-input');
+  const sendBtn = document.getElementById('chat-send-btn');
+  const messagesContainer = document.getElementById('chat-messages');
+  const contactModal = document.getElementById('contact-modal');
+  const contactForm = document.getElementById('contact-form');
+  const closeModalBtn = document.getElementById('close-modal-btn');
+  const suggestionsContainer = document.getElementById('chat-suggestions');
+
+  // Initialize session
+  function initSession() {
+    const stored = localStorage.getItem('chatSessionId');
+    const timestamp = localStorage.getItem('chatSessionTimestamp');
+    
+    if (stored && timestamp) {
+      const age = Date.now() - parseInt(timestamp);
+      if (age < CONFIG.sessionTimeout) {
+        sessionId = stored;
+        return;
+      }
+    }
+    
+    sessionId = 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    localStorage.setItem('chatSessionId', sessionId);
+    localStorage.setItem('chatSessionTimestamp', Date.now().toString());
+  }
+
+  // Toggle chat widget
+  function toggleChat() {
+    widgetContainer.classList.toggle('hidden');
+    if (!widgetContainer.classList.contains('hidden')) {
+      chatInput.focus();
+      showInitialSuggestions();
+    }
+  }
+
+  // Show initial chat suggestions
+  function showInitialSuggestions() {
+    if (!suggestionsContainer) return;
+    
+    // Only show if no messages yet (except welcome message)
+    const messages = messagesContainer.querySelectorAll('.message');
+    if (messages.length <= 1) {
+      suggestionsContainer.style.display = 'flex';
+    }
+  }
+
+  // Hide suggestions
+  function hideSuggestions() {
+    if (suggestionsContainer) {
+      suggestionsContainer.style.display = 'none';
+    }
+  }
+
+  // Add message to chat
+  function addMessage(content, isUser = false, showContactButton = false) {
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `message ${isUser ? 'user-message' : 'bot-message'}`;
+    
+    const contentDiv = document.createElement('div');
+    contentDiv.className = 'message-content';
+    // Preserve line breaks and basic formatting
+    contentDiv.style.whiteSpace = 'pre-line';
+    contentDiv.textContent = content;
+    
+    messageDiv.appendChild(contentDiv);
+    
+    // Add contact button for bot messages
+    if (!isUser && showContactButton) {
+      const contactBtnDiv = document.createElement('div');
+      contactBtnDiv.className = 'contact-suggestion';
+      contactBtnDiv.innerHTML = `
+        <button class="contact-now-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20 4H4C2.9 4 2.01 4.9 2.01 6L2 18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V6C22 4.9 21.1 4 20 4ZM20 8L12 13L4 8V6L12 11L20 6V8Z" fill="currentColor"/>
+          </svg>
+          Contact Us
+        </button>
+      `;
+      messageDiv.appendChild(contactBtnDiv);
+      
+      // Add click event to contact button
+      const contactBtn = contactBtnDiv.querySelector('.contact-now-btn');
+      contactBtn.addEventListener('click', showContactModal);
+    }
+    
+    messagesContainer.appendChild(messageDiv);
+    
+    // Scroll to bottom
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+  }
+
+  // Show typing indicator
+  function showTypingIndicator() {
+    const typingDiv = document.createElement('div');
+    typingDiv.className = 'message bot-message';
+    typingDiv.id = 'typing-indicator';
+    
+    const contentDiv = document.createElement('div');
+    contentDiv.className = 'message-content';
+    
+    const indicator = document.createElement('div');
+    indicator.className = 'typing-indicator';
+    indicator.innerHTML = '<span></span><span></span><span></span>';
+    
+    contentDiv.appendChild(indicator);
+    typingDiv.appendChild(contentDiv);
+    messagesContainer.appendChild(typingDiv);
+    
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+  }
+
+  // Remove typing indicator
+  function removeTypingIndicator() {
+    const indicator = document.getElementById('typing-indicator');
+    if (indicator) {
+      indicator.remove();
+    }
+  }
+
+  // Send message to API
+  async function sendMessage(message) {
+    if (!message.trim() || isWaitingForResponse) return;
+    
+    isWaitingForResponse = true;
+    sendBtn.disabled = true;
+    
+    // Add user message
+    addMessage(message, true);
+    chatInput.value = '';
+    
+    // Show typing indicator
+    showTypingIndicator();
+    
+    try {
+      const response = await fetch(CONFIG.apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          user_message: message,
+          session_id: sessionId
+        })
+      });
+      
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      
+      const data = await response.json();
+      
+      removeTypingIndicator();
+      addMessage(data.response || 'Sorry, I could not process your request.', false, true);
+      
+      // Hide suggestions after first message
+      hideSuggestions();
+      
+      // Update session timestamp
+      localStorage.setItem('chatSessionTimestamp', Date.now().toString());
+      
+    } catch (error) {
+      console.error('Error sending message:', error);
+      removeTypingIndicator();
+      addMessage('Sorry, there was an error processing your request. Please try again.', false, false);
+    } finally {
+      isWaitingForResponse = false;
+      sendBtn.disabled = false;
+      chatInput.focus();
+    }
+  }
+
+  // Show contact modal
+  function showContactModal() {
+    if (contactModal) {
+      contactModal.classList.remove('hidden');
+    }
+  }
+
+  // Hide contact modal
+  function hideContactModal() {
+    if (contactModal) {
+      contactModal.classList.add('hidden');
+      contactForm.reset();
+    }
+  }
+
+  // Submit contact form
+  async function submitContactForm(e) {
+    e.preventDefault();
+    
+    const name = document.getElementById('contact-name').value;
+    const email = document.getElementById('contact-email').value;
+    const timestamp = new Date().toISOString();
+    
+    const submitBtn = contactForm.querySelector('.submit-btn');
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Submitting...';
+    
+    try {
+      // Use URL parameters which works better with Google Apps Script CORS
+      const url = `${CONFIG.googleSheetUrl}?name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}&timestamp=${encodeURIComponent(timestamp)}`;
+      
+      // Use fetch with redirect follow mode
+      await fetch(url, {
+        method: 'GET',
+        redirect: 'follow'
+      });
+      
+      // Show success message
+      addMessage(`Thank you ${name}! We've received your information and will contact you soon. ✓`, false, false);
+      hideContactModal();
+      
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      // Even with error, data likely submitted (CORS limitation)
+      addMessage('Thank you! Your information has been submitted. ✓', false, false);
+      hideContactModal();
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Submit';
+    }
+  }
+
+  // Handle suggestion click
+  function handleSuggestionClick(e) {
+    if (e.target.classList.contains('suggestion-chip')) {
+      const message = e.target.textContent;
+      chatInput.value = message;
+      sendMessage(message);
+    }
+  }
+
+  // Event Listeners
+  widgetButton.addEventListener('click', toggleChat);
+  closeBtn.addEventListener('click', toggleChat);
+  
+  sendBtn.addEventListener('click', () => {
+    const message = chatInput.value.trim();
+    if (message) {
+      sendMessage(message);
+    }
+  });
+  
+  chatInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      const message = chatInput.value.trim();
+      if (message) {
+        sendMessage(message);
+      }
+    }
+  });
+
+  // Contact form event listeners
+  if (contactForm) {
+    contactForm.addEventListener('submit', submitContactForm);
+  }
+
+  if (closeModalBtn) {
+    closeModalBtn.addEventListener('click', hideContactModal);
+  }
+
+  // Click outside modal to close
+  if (contactModal) {
+    contactModal.addEventListener('click', (e) => {
+      if (e.target === contactModal) {
+        hideContactModal();
+      }
+    });
+  }
+
+  // Suggestion clicks
+  if (suggestionsContainer) {
+    suggestionsContainer.addEventListener('click', handleSuggestionClick);
+  }
+
+  // Initialize on load
+  initSession();
+})();
+</script>
+
 </body>
 
 </html>
