@@ -1052,12 +1052,11 @@ img {
     position: fixed;
     inset: 0;
     z-index: 2000;
-    background: rgba(4, 6, 20, 0.85);
-    backdrop-filter: blur(18px);
+    background: rgba(0, 0, 0, 0.95);
     align-items: center;
     justify-content: center;
-    padding: clamp(20px, 4vh, 48px);
-    overflow-y: auto;
+    padding: 40px;
+    cursor: pointer;
 }
 
 .modal.show {
@@ -1065,116 +1064,69 @@ img {
     animation: fadeIn 0.3s ease;
 }
 
-.modal-content {
-    background: radial-gradient(circle at top, rgba(255, 255, 255, 0.08), rgba(7, 11, 32, 0.95));
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 28px;
-    width: min(960px, 94%);
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 30px 70px rgba(2, 6, 23, 0.6);
+.modal > img {
+    max-width: 90%;
+    max-height: 90vh;
+    object-fit: contain;
+    border-radius: 12px;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+    animation: popIn 0.35s ease;
+    cursor: default;
 }
 
 .close-modal {
-    position: absolute;
-    top: 18px;
-    right: 20px;
-    width: 42px;
-    height: 42px;
+    position: fixed;
+    top: 24px;
+    right: 32px;
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
-    border: 1px solid rgba(255, 255, 255, 0.25);
+    border: 2px solid rgba(255, 255, 255, 0.3);
     color: #fff;
-    background: rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(8px);
+    background: rgba(255, 255, 255, 0.1);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.2rem;
+    font-size: 28px;
     cursor: pointer;
-    z-index: 5;
-    transition: background 0.2s ease, transform 0.2s ease;
+    z-index: 2001;
+    transition: all 0.2s ease;
+    backdrop-filter: blur(4px);
 }
 
 .close-modal:hover {
-    background: rgba(255, 255, 255, 0.2);
-    transform: translateY(-1px);
+    background: rgba(255, 255, 255, 0.25);
+    transform: scale(1.1);
 }
 
-.modal-grid {
-    display: grid;
-    grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
-    align-items: stretch;
-}
-
-.modal-image-container {
-    background: #050a1f;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 32px;
-    border-right: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.modal-image-container img {
-    width: auto;
-    height: auto;
-    max-width: 100%;
-    max-height: 75vh;
-    object-fit: contain;
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
-    border-radius: 22px;
-}
-
-.modal-text {
-    padding: 48px 40px;
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-    color: #f5f6ff;
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0) 100%);
-}
-
-.modal-text h3 {
-    font-size: 2rem;
-    color: #fff;
-}
-
-.modal-text p {
-    color: rgba(245, 246, 255, 0.85);
-    line-height: 1.6;
-}
-
-.modal-divider {
-    width: 65px;
-    height: 3px;
-    background: linear-gradient(90deg, #5d5fef, #f95738);
-    border-radius: 999px;
-}
-
-.modal-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-
-.tag {
-    padding: 6px 14px;
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.12);
-    color: #fff;
-    font-size: 0.85rem;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+@keyframes popIn {
+    from {
+        opacity: 0;
+        transform: scale(0.85);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
 
 @keyframes fadeIn {
     from {
         opacity: 0;
-        transform: scale(0.98);
     }
-
     to {
         opacity: 1;
-        transform: scale(1);
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px) scale(0.96);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
     }
 }
 
@@ -1291,20 +1243,21 @@ footer {
         text-align: center;
     }
 
-    .modal-grid {
-        grid-template-columns: 1fr;
-        height: auto;
-        overflow-y: auto;
-        max-height: 90vh;
-    }
-
-    .modal-image-container {
-        height: auto;
+    .modal {
         padding: 20px;
     }
 
-    .modal-text {
-        padding: 24px;
+    .modal > img {
+        max-width: 95%;
+        max-height: 85vh;
+    }
+
+    .close-modal {
+        top: 16px;
+        right: 16px;
+        width: 40px;
+        height: 40px;
+        font-size: 24px;
     }
 
     .profile-container {

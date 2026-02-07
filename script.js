@@ -125,28 +125,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const modal = document.getElementById('imageModal');
     const modalImg = document.getElementById('modalImg');
-    const modalTitle = document.getElementById('modalTitle');
-    const modalDesc = document.getElementById('modalDesc');
     const closeModal = document.querySelector('.close-modal');
     const workItems = document.querySelectorAll('.work-item');
-    const modalCta = document.querySelector('#imageModal .btn-primary'); // The contact button
 
     // Open Modal
     if (workItems.length > 0 && modal) {
         workItems.forEach(item => {
-            item.style.cursor = 'pointer'; // Make sure they look clickable
+            item.style.cursor = 'pointer';
             item.addEventListener('click', () => {
-                const title = item.getAttribute('data-title');
-                const desc = item.getAttribute('data-desc');
                 const img = item.getAttribute('data-img');
-
-                if (title && img) {
-                    modalTitle.textContent = title;
-                    if (modalDesc) modalDesc.textContent = desc || '';
-                    if (modalImg) modalImg.src = img;
-
+                if (img && modalImg) {
+                    modalImg.src = img;
                     modal.classList.add('show');
-                    document.body.style.overflow = 'hidden'; // Prevent background scrolling
+                    document.body.style.overflow = 'hidden';
                 }
             });
         });
@@ -158,24 +149,6 @@ document.addEventListener('DOMContentLoaded', () => {
             modal.classList.remove('show');
             document.body.style.overflow = '';
         }
-    }
-
-    // Special Modal CTA Click (Contact Me)
-    if (modalCta) {
-        modalCta.addEventListener('click', (e) => {
-            hideModal(); // Close modal first
-            // Default anchor behavior will take us to #contact if href="#contact"
-            const targetId = modalCta.getAttribute('href');
-            if (targetId && targetId.startsWith('#')) {
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    // Small timeout to allow modal fade out
-                    setTimeout(() => {
-                        targetElement.scrollIntoView({ behavior: 'smooth' });
-                    }, 300);
-                }
-            }
-        });
     }
 
     // Close Button Event
